@@ -3,14 +3,15 @@ export const initialState ={
     user: null
   
 } 
-    //Selector
-    export const getBasketTotal =(basket) => 
-        basket?.reduce((amount, item) => item.price + amount, 0)
+             // SELECTOR
+    export const getBasketTotal = (basket) => 
+        basket?.reduce((amount, item) => item.price + amount, 0);
      
 
 
-//listener function
-const  reducer  =   (state, action ) => {
+             // LISTENER FUNCTION
+
+        const  reducer  =   (state, action ) => {
     
          switch(action.type) {
             case  'ADD_TO_BASKET':

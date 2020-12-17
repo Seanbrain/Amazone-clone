@@ -7,6 +7,8 @@ import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js"
 import CurrencyFormat from 'react-currency-format';
 import { getBasketTotal } from './reducer';
 import axios from './axios';
+import { db } from './firebase';
+
 
 function Payment() {
 const [{ basket, user}, dispatch] = useStateValue();
@@ -35,6 +37,8 @@ useEffect(() => {
 },[basket])
 
 console.log('THE SECRET IS >>>', clientSecret)
+console.log('DEBUGGING... >>>', user)
+
 
 
 
@@ -50,10 +54,26 @@ const handleSubmit = async (event) => {
       payment_method: {
           card: elements.getElement(CardElement)
       }
-  }).
-      then(({paymentIntent}) => {
+      
+  }).then(({paymentIntent}) => {
 
           //paymentIntent = payment Confirmation
+          console.log('THESE ARE THE CONTENTS OF THE BASKET>>>>', basket)
+          db
+          .collection('users')
+          .doc(user?.uid)
+          .collection('orders')
+          .doc(paymentIntent.id)
+          .set({
+              basket: basket,
+              amount: paymentIntent.amount,
+               created: paymentIntent.created
+               
+          })
+          
+
+                   
+
           setSucceeded(true);
           setError(null);
           setProcessing(false)
@@ -63,6 +83,8 @@ const handleSubmit = async (event) => {
           })
 
           history.replace('/orders')
+
+                  
       }) 
 
 }
@@ -132,7 +154,7 @@ const handleChange = event => {
                             value ={getBasketTotal(basket)}
                             displayType={"text"}
                             thousandSeparator={true}
-                            prefix={"$"}
+                            prefix={"#"}
                             />
                             <button disabled={processing || disabled || succeeded}>
                                  <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
