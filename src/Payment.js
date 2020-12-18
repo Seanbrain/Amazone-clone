@@ -48,7 +48,13 @@ console.log('DEBUGGING... >>>', user)
 const handleSubmit = async (event) => {
     // do all fancy stripe stuff 
     event.preventDefault();
-    setProcessing(true);
+     if(!user){
+         setError(<strong> Please <Link to="/login">Sign In</Link> To Continue Transaction</strong>)
+         
+     }     
+    
+     setProcessing(!user ? false : true);
+    
 
   const payload = await stripe.confirmCardPayment(clientSecret,  {
       payment_method: {
@@ -59,6 +65,7 @@ const handleSubmit = async (event) => {
 
           //paymentIntent = payment Confirmation
           console.log('THESE ARE THE CONTENTS OF THE BASKET>>>>', basket)
+          
           db
           .collection('users')
           .doc(user?.uid)

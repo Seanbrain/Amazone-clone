@@ -9,7 +9,7 @@ function Login() {
      const [password, setPassword] = useState("")
      
     const signIn = e => { // the preventDefault is to prevent the page from refreshing on clicking the signin button
-        e.peventDefault()
+        e.preventDefault()
 
         auth
         .signInWithEmailAndPassword(email, password)
@@ -53,12 +53,12 @@ function Login() {
                     <button className="login__signInButton" type ="submit" onClick={signIn}>Sign In</button>
                 </form>
                 <p>
-                    By signing-in you agree to AMAZON CLONE Conditions of Use & Sale.
+                    By signing-in you agree to BRAIN'S CLONE Conditions of Use & Sale.
                     Please see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice
 
                 </p>
                
-                 <button class="login__registerButton" onClick={register}> Create you Amazon Account</button>
+                 <button className="login__registerButton" onClick={register}> Create your FAKE Amazon Account</button>
 
 
             </div>
