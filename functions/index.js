@@ -20,11 +20,11 @@ app.get('/', (request, response) => response.status(200).send('Hello Brain'))
 app.post('/payments/create', async (request, response) => {
     const total = request.query.total;
 
-    console.log('PAYMENT REQUEST RECEIVED >>>>', total)
+    console.log('PAYMENT REQUEST RECEIVED FROM THE FRONT-END REACT APP >>>>', total)
 
     const paymentIntent = await stripe.paymentIntents.create({
         amount: total, // sub units of the currency
-        currency: 'usd'
+        currency: 'ngn'
     });
 
     //OK -Created
